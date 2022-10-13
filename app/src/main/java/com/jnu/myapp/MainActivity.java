@@ -7,13 +7,19 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import android.os.Bundle;
+import android.view.ContextMenu;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
     private List<Book>mlist=new ArrayList<Book>();
+    BookBaseAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        BookBaseAdapter adapter=new BookBaseAdapter(mlist,this);
+        adapter=new BookBaseAdapter(mlist,this);
         recyclerView.setAdapter(adapter);
 
         recyclerView.addItemDecoration(new RecyclerView.ItemDecoration() {
@@ -37,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initBook() {
-        for(int i=0;i<10;i++){
+        for(int i=0;i<5;i++){
             Book book01=new Book("信息安全数学基础（第2版）",R.drawable.book_1);
             Book book02=new Book("软件项目管理案例教程（第4版）",R.drawable.book_2);
             Book book03=new Book("创新工程实践",R.drawable.book_no_name);
@@ -46,4 +52,5 @@ public class MainActivity extends AppCompatActivity {
             mlist.add(book03);
         }
     }
+
 }
