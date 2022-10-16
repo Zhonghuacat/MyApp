@@ -1,7 +1,11 @@
 package com.jnu.myapp;
 
 import android.annotation.SuppressLint;
+import androidx.appcompat.app.AppCompatActivity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -14,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
@@ -96,6 +101,8 @@ public class BookBaseAdapter extends RecyclerView.Adapter<BookBaseAdapter.MyHold
                     Toast.makeText(mContext, "pressed on add", Toast.LENGTH_SHORT).show();
                     mBookList.add(getAdapterPosition(),new Book("newBook",R.drawable.book_1));
                     bookBaseAdapter.notifyItemInserted(getAdapterPosition());
+                    Intent intent=new Intent(mContext,MainActivity2.class);
+                    ContextCompat.startActivity(mContext,intent,null);
                     break;
                 case 2:
                     Toast.makeText(mContext, "pressed on edit", Toast.LENGTH_SHORT).show();
@@ -104,8 +111,21 @@ public class BookBaseAdapter extends RecyclerView.Adapter<BookBaseAdapter.MyHold
                     break;
                 case 3:
                     Toast.makeText(mContext, "pressed on delete", Toast.LENGTH_SHORT).show();
-                    mBookList.remove(getAdapterPosition());
-                    bookBaseAdapter.notifyItemRemoved(getAdapterPosition());
+                    AlertDialog alertDialog = new AlertDialog.Builder(mContext)
+                            .setTitle("DELETE").setMessage("是否确定要删除")
+                            .setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    mBookList.remove(getAdapterPosition());
+                                    bookBaseAdapter.notifyItemRemoved(getAdapterPosition());
+                                }
+                            }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+
+                                }
+                            }).create();
+                    alertDialog.show();
                     break;
             }
             return true;

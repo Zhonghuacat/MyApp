@@ -39,7 +39,6 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.addItemDecoration(new RecyclerView.ItemDecoration() {
         });
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-
     }
 
     private void initBook() {
